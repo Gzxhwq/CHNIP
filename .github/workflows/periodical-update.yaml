@@ -44,7 +44,7 @@ jobs:
       run: |
         curl -LR -o- "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt" | grep -v "#" > dist/misakaio.tmp
         curl -LR -o- "https://raw.githubusercontent.com/17mon/china_ip_list/master/china_ip_list.txt" | grep -v "#" > dist/ipip.tmp
-        curl -LR -o- "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt" | grep -v "#" > dist/chunzhen.tmp
+        curl -LR -o- "https://raw.githubusercontent.com/metowolf/iplist/master/data/country/CN.txt" | grep -v "#" > dist/chunzhen.tmp
         cat dist/misakaio.tmp dist/ipip.tmp dist/chunzhen.tmp | aggregate -q > dist/CN-ip-cidr.txt
         cat dist/CN-ip-cidr.txt | sed "s/^\(.*\)$/  - '\1'/g;1ipayload:" > dist/clash-rule-provider.yml
         cat dist/CN-ip-cidr.txt | sed "s/^\(.*\)$/IP-CIDR,\1/g" > dist/clash-ruleset.list
