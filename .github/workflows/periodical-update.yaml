@@ -13,6 +13,12 @@ jobs:
   build:
     name: Generate GeoIP2 database
     runs-on: ubuntu-latest
+    permissions:                # Job-level permissions configuration starts here
+      actions: write
+      contents: write           # 'write' access to repository contents
+      pull-requests: write      # 'write' access to pull requests
+
+
     steps:
 
     - name: Set up Go 1.x
@@ -99,3 +105,11 @@ jobs:
         curl -L https://purge.jsdelivr.net/gh/Gzxhwq/CHNIP@release/clash-ruleset.list > /dev/null 2>&1
         curl -L https://purge.jsdelivr.net/gh/Gzxhwq/CHNIP@release/surge-ruleset.list > /dev/null 2>&1
         curl -L https://purge.jsdelivr.net/gh/Gzxhwq/CHNIP@release/chnroute.ipset > /dev/null 2>&1
+
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        retain_days: 1
+        keep_minimum_runs: 0
